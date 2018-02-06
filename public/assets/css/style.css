@@ -1,0 +1,9 @@
+.btn:hover{
+    cursor: pointer;
+}
+.img-thumbnail{
+    background-color:lightgray;
+}
+.img-thumbnail>img{
+    width: 100%;
+}
