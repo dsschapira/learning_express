@@ -7,3 +7,9 @@
 .img-thumbnail>img{
     width: 100%;
 }
+textarea{
+    resize:none;
+}
+.centered{
+    text-align:center;
+}

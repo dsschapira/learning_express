@@ -17,7 +17,8 @@ mongoose.connect(DB_URL,function(err){
 
 const campSiteSchema = new mongoose.Schema({
     name: String,
-    image: String
+    image: String,
+    description: String
 });
 
 var CampSite = mongoose.model("CampSite",campSiteSchema);
@@ -50,7 +51,8 @@ app.get("/campgrounds",function(req,res){
 app.post("/campgrounds",function(req,res){
     const newCampground = {
         name: req.body.name,
-        image: req.body.image
+        image: req.body.image,
+        description: req.body.description ? req.body.description : ""
     };
     campgrounds.push(newCampground);
     //add to campgrounds array so we don't need to re-find from database every time campgrounds page is loaded
@@ -65,6 +67,17 @@ app.post("/campgrounds",function(req,res){
 
 app.get("/campgrounds/new",function(req,res){
     res.render("new");
+});
+
+app.get("/campgrounds/:id",function(req,res){
+    CampSite.findById(req.params.id,function(err, foundCampground){
+        if(err){
+            console.log(err);
+            res.redirect("404");
+        } else{
+            res.render("show",{campground: foundCampground}); 
+        }
+    });
 });
 
 app.get("*",function(req,res){
